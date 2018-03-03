@@ -18,7 +18,7 @@ class Player:
         """
         while True:
             move = input('Player {}, enter move: '.format(number + 1))
-            if re.match(r'^([A-J][1-9]|10)$', move):
+            if re.match(r'^([A-J]([1-9]|10))$', move):
                 return int(move[1:]) - 1, ord(move[0]) - 65
             else:
                 print('Wrong format!!! Try again!')
