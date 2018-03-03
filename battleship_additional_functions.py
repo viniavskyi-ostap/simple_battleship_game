@@ -13,7 +13,7 @@ def read_file(path):
     return battlefield
 
 
-def has_ship_general(bf, position):
+def has_ship(bf, position):
     """
     Check if there is a ship on specified position
     :param bf: 2D list representation of a battlefield: list(list)
@@ -23,23 +23,6 @@ def has_ship_general(bf, position):
     if not (0 <= position[0] <= 9) or not (0 <= position[1] <= 9):
         return False
     return bool(bf[position[0]][position[1]])
-
-
-# def has_ship(bf, position):
-#     """
-#     :param bf: 2D list representation of a battlefield: list(list)
-#     :param position: Coordinates of a position on a battlefield: tuple
-#     :return: True if on that position is an alive ship, else False
-#     """
-#     if not (1 <= position[1] <= 10) or not ('A' <= position[0] <= 'J'):
-#         return False
-#     x, y = position[1] - 1,  ord(position[0]) - 65
-#     ship = bf[x][y]
-#     # if there is no ship at all
-#     if not ship:
-#         return False
-#     # if ship is drown
-#     if
 
 
 def ship_size(bf, position):
@@ -69,12 +52,12 @@ def is_valid(bf):
     ship_by_length_number = {1: 0, 2: 0, 3: 0, 4: 0}
     for x in range(10):
         for y in range(10):
-            if has_ship_general(bf, (x, y)):
+            if has_ship(bf, (x, y)):
                 # check if there are no ships on diagonals
-                if (has_ship_general(bf, (x - 1, y - 1)) or
-                        has_ship_general(bf, (x - 1, y + 1)) or
-                        has_ship_general(bf, (x + 1, y - 1)) or
-                        has_ship_general(bf, (x + 1, y + 1))):
+                if (has_ship(bf, (x - 1, y - 1)) or
+                        has_ship(bf, (x - 1, y + 1)) or
+                        has_ship(bf, (x + 1, y - 1)) or
+                        has_ship(bf, (x + 1, y + 1))):
                     return False
 
                 ship_by_length_number[ship_size(bf, (x, y))] += 1
