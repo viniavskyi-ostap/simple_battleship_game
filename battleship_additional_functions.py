@@ -110,28 +110,38 @@ def generate_field():
             # 0 - up, 1 - down, 2 - right, 3 - left
             direction = random.randint(0, 3)
             if direction == 0:
+                if x - 3 < 0:
+                    raise IndexError
                 bf[x][y] = bf[x - 1][y] = bf[x - 2][y] = bf[x - 3][y] \
                     = Ship((x - 3, y), False, 4)
             elif direction == 1:
+                if x + 3 > 9:
+                    raise IndexError
                 bf[x][y] = bf[x + 1][y] = bf[x + 2][y] = bf[x + 3][y] \
                     = Ship((x, y), False, 4)
             elif direction == 2:
+                if y + 3 > 9:
+                    raise IndexError
                 bf[x][y] = bf[x][y + 1] = bf[x][y + 2] = bf[x][y + 3] \
                     = Ship((x, y), True, 4)
             else:
+                if y - 3 < 0:
+                    raise IndexError
                 bf[x][y] = bf[x][y - 1] = bf[x][y - 2] = bf[x][y - 3] \
                     = Ship((x, y - 3), True, 4)
 
             # place 3-len
             for i in range(2):
-                x = random.randint(0, 9)
-                y = random.randint(0, 9)
                 # 0 - horizontal, 1 - vertical
                 direction = random.randint(0, 1)
                 if direction:
+                    x = random.randint(1, 8)
+                    y = random.randint(0, 9)
                     bf[x - 1][y] = bf[x + 1][y] = bf[x][y] \
                         = Ship((x - 1, y), False, 3)
                 else:
+                    x = random.randint(0, 9)
+                    y = random.randint(1, 8)
                     bf[x][y - 1] = bf[x][y + 1] = bf[x][y] \
                         = Ship((x, y - 1), True, 3)
 
@@ -142,12 +152,20 @@ def generate_field():
                 # 0 - up, 1 - down, 2 - right, 3 - left
                 direction = random.randint(0, 3)
                 if direction == 0:
+                    if x - 1 < 0:
+                        raise IndexError
                     bf[x][y] = bf[x - 1][y] = Ship((x - 1, y), False, 2)
                 elif direction == 1:
+                    if x + 1 > 9:
+                        raise IndexError
                     bf[x][y] = bf[x + 1][y] = Ship((x, y), False, 2)
                 elif direction == 2:
+                    if y + 1 > 9:
+                        raise IndexError
                     bf[x][y] = bf[x][y + 1] = Ship((x, y), True, 2)
                 else:
+                    if y - 1 < 0:
+                        raise IndexError
                     bf[x][y] = bf[x][y - 1] = Ship((x, y - 1), True, 2)
 
             # place 1-len
@@ -160,16 +178,3 @@ def generate_field():
         except (IndexError, KeyError):
             continue
     return bf
-
-
-if __name__ == '__main__':
-    import time
-    timess=[]
-    for i in range(15):
-        print(i)
-        start = time.time()
-
-        print(field_to_str(generate_field()))
-        timess.append(time.time() - start)
-
-    print(sum(timess) / len(timess))

@@ -22,3 +22,15 @@ class Ship:
             self.__hit[y - self.bow[1]] = True
         else:
             self.__hit[x - self.bow[0]] = True
+
+    def is_destroyed(self):
+        """
+        :return: if ship is completely destroyed
+        """
+        return all(self.__hit)
+
+    def length(self):
+        """
+        :return: length of the ship
+        """
+        return self.__length
